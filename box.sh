@@ -55,24 +55,39 @@ then
         then
 		if [ "$force" == "1" ];
 		then
-			echo -e "\nForcing new authentification."
+			if [ "$silent" != 1 ];
+			then
+				echo -e "\nForcing new authentification."
+			fi
 			get_ticket
 			display_auth_url
 			get_token
 			update_conf
-			echo -e "\nDone, check config.sh\n"
+			if [ "$silent" != 1 ];
+			then
+				echo -e "\nDone, check config.sh\n"
+			fi
 			exit 0
 		else
-        		echo -e "\nError, already authorized. Use --force to force new auth.\n"
+			if [ "$silent" != 1 ];
+			then
+        			echo -e "\nError, already authorized. Use --force to force new auth.\n"
+			fi
                 	exit 1
 		fi
         fi
-	echo -e "\nAuthentification started ...\n"
+	if [ "$silent" != 1 ];
+	then
+		echo -e "\nAuthentification started ...\n"
+	fi
         get_ticket
         display_auth_url
         get_token
         update_conf
-        echo -e "Done, check config.sh\n"
+	if [ "$silent" != 1 ];
+	then
+        	echo -e "Done, check config.sh\n"
+	fi
 fi
 
 if [ "$list_folder" == "1" ];
@@ -80,9 +95,15 @@ then
 	if [ "$folder_id" == "" ];
 	then
 		folder_id=0
-		echo -e "\nNo folder ID specified, listing root folder :\n"
+		if [ "$silent" != 1 ];
+		then
+			echo -e "\nNo folder ID specified, listing root folder :\n"
+		fi
 		get_list
-		echo ""
+		if [ "$silent" != 1 ];
+		then
+			echo ""
+		fi
 		exit 0
 	else
 		if [ "$silent" != 1 ];
@@ -90,7 +111,10 @@ then
 			echo -e "\nListing folder with ID $folder_id :\n"
 		fi
 		get_list
-		echo ""
+		if [ "$silent" != 1 ];
+		then
+			echo ""
+		fi
 		exit 0
 	fi
 	exit 0
@@ -103,18 +127,27 @@ then
 		if [ "$folder_id" == "" ];
 		then
 			folder_id=0
-			echo -e "\nNo folder ID specified, choosing root folder for uploading file $filename.\n"
+			if [ "$silent" != 1 ];
+			then
+				echo -e "\nNo folder ID specified, choosing root folder for uploading file $filename.\n"
+			fi
 			upload
 			echo ""
 			exit 0
 		else
-			echo -e "\nUploading file $filename to folder ID $folder_id.\n"
+			if [ "$silent" != 1 ];
+			then
+				echo -e "\nUploading file $filename to folder ID $folder_id.\n"
+			fi
 			upload
 			echo ""
 			exit 0
 		fi
 	else
-		echo -e "\nError, no file specified. Use -f filename to specify the file to upload.\n"
+		if [ "$silent" != 1 ];
+		then
+			echo -e "\nError, no file specified. Use -f filename to specify the file to upload.\n"
+		fi
 		exit 1
 	fi
 fi
