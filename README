@@ -1,0 +1,8 @@
+Box.net Shell API
+
+Here is a little shell script to use with box.net API.
+The current output is the return of box.net API in json format.
+
+You can list directory, files.
+Upload file.
+
