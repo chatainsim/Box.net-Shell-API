@@ -115,5 +115,6 @@ then
 		fi
 	else
 		echo -e "\nError, no file specified. Use -f filename to specify the file to upload.\n"
+		exit 1
 	fi
 fi
