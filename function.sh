@@ -36,22 +36,6 @@ new_folder() {
   -d '{"name":"New Folder"}' \
   -X POST
 }
-usage() {
-  echo "There is no help ... yet"
-	echo ""
-	echo "Man page for box.sh :"
-	echo ""
-	echo "For the first time, you need to authenticate box.sh with your box.net account."
-	echo "To do this, please use -a or --auth parameter like this :"
-	echo "      ./box.sh -a    or   ./box.sh --auth"
-	echo ""
-	echo "To list a director use :"
-	echo "      ./box.sh -l ID_FOLDER   or   ./box.sh --list ID_FOLDER"
-	echo ""
-	echo "To upload a file use :"
-	echo "      ./box.sh -u FILENAME    or ./box.sh --upload FILENAME"
-	echo ""
-}
 check_api() {
 if [ "$API" == "" ];
 then
@@ -63,4 +47,12 @@ then
         echo ""
         exit 1
 fi
+}
+usage() {
+echo -e "\nHelp :\n-h | --help\n\nAuthentification to box.net :\n-a | --auth				Authentification apps with your box.net account."
+echo -e "     --force				Use --force to force the re-authentification even if you already have done before."
+echo -e "\nUpload a file to box.net :\n-u | --upload				For uploading a file, use the -f parameter to specified the filename."
+echo -e "-f | --file				Use -f followed by filename (eg. : box.sh -f filename).\n-d | directory				Specified a directory to upload the file to. Use the folder ID."
+echo -e "\nList files and folders :\n-l | --list				List the contents of a folder. Default is root folder (ID=0).\n					Specified a folder ID (eg. box.sh -l FOLDER_ID)."
+echo -e "\nOther options :\n-s | --silent				Do not display output other than the json return from box.net\n"
 }
