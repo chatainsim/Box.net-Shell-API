@@ -6,3 +6,22 @@ The current output is the return of box.net API in json format.
 You can list directory, files.
 Upload file.
 
+Here is the help output :
+Help :
+-h | --help
+
+Authentification to box.net :
+-a | --auth                             Authentification apps with your box.net account.
+     --force                            Use --force to force the re-authentification even if you already have done before.
+
+Upload a file to box.net :
+-u | --upload                           For uploading a file, use the -f parameter to specified the filename.
+-f | --file                             Use -f followed by filename (eg. : box.sh -f filename).
+-d | directory                          Specified a directory to upload the file to. Use the folder ID.
+
+List files and folders :
+-l | --list                             List the contents of a folder. Default is root folder (ID=0).
+                                        Specified a folder ID (eg. box.sh -l FOLDER_ID).
+
+Other options :
+-s | --silent                           Do not display output other than the json return from box.net
