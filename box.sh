@@ -1,15 +1,18 @@
+#!/bin/bash
+#Get script name
 BASEDIR="`dirname $0`"
+#Import config data
 . $BASEDIR/config.sh
+#include function.sh
 . $BASEDIR/function.sh
-
+#Check if there is at least one parameter
 if [ "$1" == "" ];
 then
         usage
         exit 1
 fi
-
+#Check if API Key exist in config.sh
 check_api
-
 while [ "$1" != "" ]; do
     case $1 in
         -f | --file )           shift
@@ -23,8 +26,8 @@ while [ "$1" != "" ]; do
                                 ;;
         -a | --auth )		auth=1
                                 ;;
-	-l | --list )		shift
-				folder_id=$1
+	-l | --list )		#shift
+				#folder_id=$1
 				list_folder=1
 				;;
 	-u | --upload )		upload_file=1
