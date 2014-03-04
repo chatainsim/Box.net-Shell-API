@@ -22,7 +22,7 @@ get_list() {
 upload() {
   if [ -f "$filename" ];
   then
-     curl -3 https://upload.box.com/api/2.0/files/data \
+     curl -3 https://upload.box.com/api/2.0/files/content \
      -H "Authorization: BoxAuth api_key=$API&auth_token=$TOKEN" \
      -F filename=@"$filename" \
      -F folder_id=$folder_id
@@ -35,6 +35,11 @@ new_folder() {
   -H "Authorization: BoxAuth api_key=$API&auth_token=$TOKEN" \
   -d '{"name":"New Folder"}' \
   -X POST
+}
+remove() {
+     curl -3 https://upload.box.com/api/2.0/files/$file_id \
+     -H "Authorization: BoxAuth api_key=$API&auth_token=$TOKEN" \
+     -X DELETE
 }
 check_api() {
 if [ "$API" == "" ];
