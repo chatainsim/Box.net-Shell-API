@@ -1,5 +1,5 @@
 get_ticket() {
-  TICKET=`curl -3 -s "https://www.box.com/api/1.0/rest?action=get_ticket&api_key=$API" | awk -F "<ticket>" {'print $2'} | awk -F "</ticket>" {'print $1'}`
+  TICKET=`curl -s "https://www.box.com/api/1.0/rest?action=get_ticket&api_key=$API" | awk -F "<ticket>" {'print $2'} | awk -F "</ticket>" {'print $1'}`
 }
 display_auth_url() {
   echo "Please open this URL to authorize the application :"
@@ -8,7 +8,7 @@ display_auth_url() {
 }
 get_token() {
   URL_TOKEN=`echo "https://www.box.com/api/1.0/rest?action=get_auth_token&api_key=$API&ticket="$TICKET | sed 's/ //g'`
-  TOKEN=`curl -3 -s "$URL_TOKEN" | awk -F "<auth_token>" {'print $2'} | awk -F "</auth_token>" {'print $1'}`
+  TOKEN=`curl -s "$URL_TOKEN" | awk -F "<auth_token>" {'print $2'} | awk -F "</auth_token>" {'print $1'}`
 #  echo $TOKEN > token.log
 }
 update_conf() {
@@ -16,13 +16,13 @@ update_conf() {
   echo "TOKEN="\"$TOKEN\" | sed 's/ //g' >> config.sh
 }
 get_list() {
-  curl -3 https://www.box.com/api/2.0/folders/$folder_id \
+  curl https://www.box.com/api/2.0/folders/$folder_id \
   -H "Authorization: BoxAuth api_key=$API&auth_token=$TOKEN"
 }
 upload() {
   if [ -f "$filename" ];
   then
-     curl -3 https://upload.box.com/api/2.0/files/content \
+     curl https://upload.box.com/api/2.0/files/content \
      -H "Authorization: BoxAuth api_key=$API&auth_token=$TOKEN" \
      -F filename=@"$filename" \
      -F folder_id=$folder_id
@@ -31,13 +31,13 @@ upload() {
   fi
 }
 new_folder() {
-  curl -3 https://api.box.com/2.0/folders/0 \
+  curl https://api.box.com/2.0/folders/0 \
   -H "Authorization: BoxAuth api_key=$API&auth_token=$TOKEN" \
   -d '{"name":"New Folder"}' \
   -X POST
 }
 remove() {
-     curl -3 https://upload.box.com/api/2.0/files/$file_id \
+     curl https://upload.box.com/api/2.0/files/$file_id \
      -H "Authorization: BoxAuth api_key=$API&auth_token=$TOKEN" \
      -X DELETE
 }
